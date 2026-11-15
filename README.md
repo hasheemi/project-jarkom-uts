@@ -16,6 +16,8 @@ supernet `10.120.0.0/13` (CIDR).
 
 ## 1. Gambar Topologi
 
+<img width="945" height="546" alt="image" src="https://github.com/user-attachments/assets/0d5e36db-61f0-4b5e-ace5-f7edd49931f0" />
+
 **Ringkasan topologi:** R-PUSAT (Balai Kota) menjadi pusat dan terhubung langsung ke R-DC, R-BARAT,
 R-UTARA, R-TIMUR, dan R-SELATAN. R-PELABUHAN terhubung ke R-UTARA. Setiap router memiliki dua LAN
 (sesuai tabel soal). Satu PC mewakili satu LAN.
@@ -85,13 +87,19 @@ terhubung.
 
 ### 3.4 Tabel alokasi
 
-> Tempel screenshot tabel VLSM dan tabel CIDR dari file Excel.
+Tabel Pembagian IP VLSM
 
-![Tabel VLSM](images/tabel-vlsm.png)
+<img width="1755" height="568" alt="image" src="https://github.com/user-attachments/assets/4a145533-abf4-402b-a5a4-8c147e15a4e0" />
 
-![Pohon penggabungan CIDR](images/pohon-cidr.png)
 
-![Tabel CIDR](images/tabel-cidr.png)
+Tabel Pohon Penggabungan CIDR
+
+<img width="700" height="525" alt="image" src="https://github.com/user-attachments/assets/c108f53c-ee50-494e-a984-c11a3d074db0" />
+
+Tabel Pembagian IP CIDR
+
+<img width="1359" height="415" alt="image" src="https://github.com/user-attachments/assets/dca4519f-2f21-498f-81f2-b593b726b86d" />
+
 
 ---
 
@@ -165,81 +173,13 @@ LAN tersebut (`.1`). Contoh konfigurasi node pc untuk VLSM
 ---
 
 ## 5. Bukti Pengujian Mandiri
+Uji Ping VLSM
 
-### Soal 1 - Blok alamat dan kebutuhan LAN
+<img width="756" height="186" alt="image" src="https://github.com/user-attachments/assets/9fadf17c-4917-4647-aa3f-d9a5448f7e37" />
 
-> Screenshot tabel kebutuhan: jumlah host, kebutuhan, prefix, ukuran blok, subnet mask.
+Uji PDU
 
-![Soal 1](images/soal1.png)
+<img width="775" height="156" alt="image" src="https://github.com/user-attachments/assets/cd72ba77-f57b-4682-878d-6e2c7f54d40f" />
 
-### Soal 2 - Rancangan kasar topologi
 
-> Screenshot topologi (sama dengan bagian 1, atau gambar rancangan kasar).
 
-![Soal 2](images/soal2.png)
-
-### Soal 3 - VLSM
-
-**a. Tabel alokasi VLSM**
-
-![Soal 3 tabel](images/soal3-tabel.png)
-
-**b. Status interface** (`show ip interface brief`), tempel satu screenshot per router:
-
-![R-PUSAT](images/vlsm-int-pusat.png) ![R-DC](images/vlsm-int-dc.png)
-![R-UTARA](images/vlsm-int-utara.png) ![R-BARAT](images/vlsm-int-barat.png)
-![R-TIMUR](images/vlsm-int-timur.png) ![R-SELATAN](images/vlsm-int-selatan.png)
-![R-PELABUHAN](images/vlsm-int-pelabuhan.png)
-
-**c. Tabel routing** (`show ip route` di R-PUSAT)
-
-![VLSM route](images/vlsm-route.png)
-
-**d. Ping antar LAN**
-
-| Dari         | Ke           | Perintah            | Hasil          |
-| ------------ | ------------ | ------------------- | -------------- |
-| PC-WiFiBarat | PC-SCADA     | `ping 10.120.160.2` | (isi: 0% loss) |
-| PC-CCTV      | PC-Pegawai   | `ping 10.120.224.2` | (isi)          |
-| PC-PJU       | PC-WiFiTimur | `ping 10.120.128.2` | (isi)          |
-| PC-KantorPel | PC-WiFiUtara | `ping 10.120.0.2`   | (isi)          |
-
-![Ping VLSM 1](images/vlsm-ping1.png) ![Ping VLSM 2](images/vlsm-ping2.png)
-
-### Soal 4 - CIDR / Supernetting
-
-**a. Pohon penggabungan**
-
-![Soal 4a](images/soal4a.png)
-
-**b. Tabel alokasi CIDR**
-
-![Soal 4b](images/soal4b.png)
-
-**c. Status interface dan tabel routing**
-
-![CIDR interface](images/cidr-int.png) ![CIDR route](images/cidr-route.png)
-
-**d. Ping antar LAN**
-
-| Dari         | Ke           | Perintah            | Hasil |
-| ------------ | ------------ | ------------------- | ----- |
-| PC-WiFiUtara | PC-SCADA     | `ping 10.121.128.2` | (isi) |
-| PC-CCTV      | PC-PJU       | `ping 10.122.96.2`  | (isi) |
-| PC-WiFiBarat | PC-WiFiTimur | `ping 10.122.0.2`   | (isi) |
-
-![Ping CIDR](images/cidr-ping.png)
-
-### Soal 5 - Perbandingan efisiensi
-
-**a. Prefix terkecil, persentase pemakaian, dan alamat terbuang**
-
-| Metode | Prefix | Total alamat | Terpakai | Pemakaian | Terbuang |
-| ------ | ------ | ------------ | -------- | --------- | -------- |
-| VLSM   | /16    | 65.536       | 61.752   | 94,23%    | 3.784    |
-| CIDR   | /13    | 524.288      | 61.752   | 11,78%    | 462.536  |
-
-**b. Kesimpulan:** VLSM lebih efisien karena setiap subnet mendapat blok sesuai kebutuhan, sedangkan
-CIDR membulatkan ukuran ke pangkat 2 di tiap tingkat penggabungan sehingga banyak alamat kosong.
-
----
