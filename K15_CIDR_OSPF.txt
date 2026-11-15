@@ -1,0 +1,189 @@
+! ===== CONFIG CIDR SUPERNETTING - KELOMPOK 15 =====
+
+! ---------- R-PUSAT ----------
+enable
+configure terminal
+hostname R-PUSAT
+interface gi7/0
+ description L1 ke R-DC
+ ip address 10.124.8.33 255.255.255.252
+ no shutdown
+interface fa0/0
+ description L2 ke R-UTARA
+ ip address 10.124.8.37 255.255.255.252
+ no shutdown
+interface gi8/0
+ description L3 ke R-SELATAN
+ ip address 10.124.8.41 255.255.255.252
+ no shutdown
+interface gi6/0
+ description L4 ke R-TIMUR
+ ip address 10.124.8.45 255.255.255.252
+ no shutdown
+interface fa1/0
+ description L5 ke R-BARAT
+ ip address 10.124.8.49 255.255.255.252
+ no shutdown
+interface gi9/0
+ description LAN Pegawai
+ ip address 10.124.0.1 255.255.248.0
+ no shutdown
+interface gi3/0
+ description LAN Server BK
+ ip address 10.124.8.1 255.255.255.224
+ no shutdown
+exit
+router rip
+ version 2
+ network 10.0.0.0
+ no auto-summary
+end
+write memory
+
+! ---------- R-DC ----------
+enable
+configure terminal
+hostname R-DC
+interface fa0/0
+ description L1 ke R-PUSAT
+ ip address 10.124.8.34 255.255.255.252
+ no shutdown
+interface gi6/0
+ description LAN CCTV
+ ip address 10.120.0.1 255.255.224.0
+ no shutdown
+interface fa1/0
+ description LAN Storage DC
+ ip address 10.120.32.1 255.255.255.0
+ no shutdown
+exit
+router rip
+ version 2
+ network 10.0.0.0
+ no auto-summary
+end
+write memory
+
+! ---------- R-UTARA ----------
+enable
+configure terminal
+hostname R-UTARA
+interface fa0/0
+ description L2 ke R-PUSAT
+ ip address 10.124.8.38 255.255.255.252
+ no shutdown
+interface fa1/0
+ description L6 ke R-PELABUHAN
+ ip address 10.124.8.53 255.255.255.252
+ no shutdown
+interface gi6/0
+ description LAN WiFi Utara
+ ip address 10.121.0.1 255.255.192.0
+ no shutdown
+interface gi7/0
+ description LAN Sensor Lalin
+ ip address 10.121.64.1 255.255.254.0
+ no shutdown
+exit
+router rip
+ version 2
+ network 10.0.0.0
+ no auto-summary
+end
+write memory
+
+! ---------- R-BARAT ----------
+enable
+configure terminal
+hostname R-BARAT
+interface fa0/0
+ description L5 ke R-PUSAT
+ ip address 10.124.8.50 255.255.255.252
+ no shutdown
+interface fa1/0
+ description LAN WiFi Barat
+ ip address 10.120.64.1 255.255.224.0
+ no shutdown
+interface gi6/0
+ description LAN Puskesmas Sekolah
+ ip address 10.120.96.1 255.255.255.0
+ no shutdown
+exit
+router rip
+ version 2
+ network 10.0.0.0
+ no auto-summary
+end
+write memory
+
+! ---------- R-TIMUR ----------
+enable
+configure terminal
+hostname R-TIMUR
+interface fa0/0
+ description L4 ke R-PUSAT
+ ip address 10.124.8.46 255.255.255.252
+ no shutdown
+interface gi6/0
+ description LAN WiFi Timur
+ ip address 10.122.0.1 255.255.224.0
+ no shutdown
+interface gi7/0
+ description LAN Sensor Banjir
+ ip address 10.122.32.1 255.255.252.0
+ no shutdown
+exit
+router rip
+ version 2
+ network 10.0.0.0
+ no auto-summary
+end
+write memory
+
+! ---------- R-SELATAN ----------
+enable
+configure terminal
+hostname R-SELATAN
+interface fa0/0
+ description L3 ke R-PUSAT
+ ip address 10.124.8.42 255.255.255.252
+ no shutdown
+interface fa1/0
+ description LAN WiFi Selatan
+ ip address 10.122.64.1 255.255.224.0
+ no shutdown
+interface gi6/0
+ description LAN PJU Pintar
+ ip address 10.122.96.1 255.255.255.128
+ no shutdown
+exit
+router rip
+ version 2
+ network 10.0.0.0
+ no auto-summary
+end
+write memory
+
+! ---------- R-PELABUHAN ----------
+enable
+configure terminal
+hostname R-PELABUHAN
+interface fa0/0
+ description L6 ke R-UTARA
+ ip address 10.124.8.54 255.255.255.252
+ no shutdown
+interface gi6/0
+ description LAN SCADA
+ ip address 10.121.128.1 255.255.224.0
+ no shutdown
+interface gi7/0
+ description LAN Kantor Pelabuhan
+ ip address 10.121.160.1 255.255.255.128
+ no shutdown
+exit
+router rip
+ version 2
+ network 10.0.0.0
+ no auto-summary
+end
+write memory
