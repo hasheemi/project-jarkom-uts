@@ -182,4 +182,16 @@ Uji PDU
 <img width="775" height="156" alt="image" src="https://github.com/user-attachments/assets/cd72ba77-f57b-4682-878d-6e2c7f54d40f" />
 
 
+## Soal 8
+
+Layanan aplikasi Smart City memakai domain internal **k15.smartcity.lab** dan berjalan di dua Server-PT. **Server-DC** (LAN Server dan Storage DC) menjalankan DNS, FTP, dan email: DNS memiliki record A untuk `www`, `ftp`, dan `mail` yang dapat diakses dari seluruh wilayah, FTP dengan akun login `cctv` dipakai PC-CCTV untuk mengunggah rekaman, dan layanan email (SMTP dan POP3) menampung akun `pegawai1` dan `pelabuhan1` agar pengguna Balai Kota dan Pelabuhan dapat saling mengirim dan menerima email. **Server-BK** (LAN Server Balai Kota) menjalankan layanan HTTP berisi halaman "Portal Smart City Surabaya" yang mencantumkan nomor kelompok dan dapat dibuka dengan `www.k15.smartcity.lab` dari semua wilayah. Seluruh PC memakai DNS Server milik Server-DC, dan pengujian dilakukan dengan `ping` dan `nslookup` nama domain, membuka web dari tiap wilayah, mengunggah file lewat FTP, serta mengirim email dua arah.
+
+<img width="893" height="354" alt="Screenshot 2026-11-15 212056" src="https://github.com/user-attachments/assets/1f87647f-47e8-4977-905a-777e0877b56c" />
+<img width="926" height="356" alt="Screenshot 2026-11-15 212255" src="https://github.com/user-attachments/assets/841eb19f-7db4-4fc2-8f64-101c57c7948a" />
+<img width="530" height="298" alt="Screenshot 2026-11-15 212351" src="https://github.com/user-attachments/assets/c49b1ac2-bd71-4a8a-8451-de6efbb588db" />
+<img width="851" height="305" alt="Screenshot 2026-11-15 212513" src="https://github.com/user-attachments/assets/f7180e89-22fc-443d-a5ac-7711ffa57938" />
+
+<img width="919" height="379" alt="Screenshot 2026-11-15 212748" src="https://github.com/user-attachments/assets/2da97604-b075-4258-947c-edad76fca2f3" />
+
+
 
